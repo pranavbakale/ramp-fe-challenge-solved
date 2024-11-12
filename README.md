@@ -6,22 +6,41 @@ In this challenge, you will need to fix certain bugs within the starter code pro
 
 The bugs **do not depend on each other**, so you can solve them independently.
 
+You will submit a CodeSandbox link with your response.
+
 ### Prerequisites
 
 - `node`
 - `npm` or `yarn`
+- [CodeSandbox](https://codesandbox.io)
 
-### Start the server
+### Coding
 
-- Run `yarn install`
+Since you need to submit a CodeSandbox link with your response (_See [Submission](#submission)_), we recommend that you create the CodeSandbox first, solve the bugs in your generated CodeSandbox, and then share the link with us. _You can also work locally first, and upload at the end._
+
+#### Upload the project to CodeSandbox
+
+**NOTE: We recommend you use this method to upload your project (with the CLI) rather than importing directly from Github to generate a CodeSandbox.**
+
+- Run `yarn install` or `npm install`
+- Run `yarn upload` or `npm run upload`
+- If this is the first time using CodeSandbox CLI, it will ask you to log in with Github first
+- You might be prompted: **We will upload XXX static files to your CodeSandbox upload storage** and then a list of files (typically `DS_Store` or `desktop.ini` files). It's fine if you upload with these, or you can manually remove them before uploading.
+- Confirm that you want to proceed with deployment
+- Once it finishes, you will get the link for your CodeSandbox. Also, you can log in to the website with your Github account and see your projects to retrieve the link.
+- Start working directly on the CodeSandbox
+
+_Reference: https://codesandbox.io/docs/learn/sandboxes/cli-api_
+
+Or
+
+#### Run the server locally
+
+- Run `yarn install` or `npm install`
 - Run `yarn start`
-- Open the app in http://localhost:3000/
+- The server will be available in `http://localhost:3000`
 
-or
-
-- Run `npm install`
-- Run `npm start`
-- Open the app in http://localhost:3000/
+If you work locally to solve the challenge, make sure you still follow the above steps to upload the project to CodeSandbox.
 
 ### Special considerations
 
@@ -31,7 +50,9 @@ At Ramp, we use React + Typescript in our codebase.
 
 You are not required to know Typescript and using it in this challenge is optional. We have abstracted most of the Typescript code into its own files (_types.ts_), so feel free to ignore those. All of the bugs can be solved without Typescript.
 
-However, if you feel comfortable with Typescript, feel free to remove `TSC_COMPILE_ON_ERROR` on `.env` and to write any Typescript code.
+If you work on the CodeSandbox, you can ignore any warnings on the code as long it works in the browser. However, feel free to write any Typescript code if your feel comfortable.
+
+If you work locally, `TSC_COMPILE_ON_ERROR` flag is set to `true` by default. However, if you feel comfortable with Typescript, feel free to remove it on `.env` and to write any Typescript code.
 
 #### API
 
@@ -40,10 +61,12 @@ We don't have a real API for this challenge, so we added some utilities to simul
 #### Solution
 
 - Solutions can be HTML, CSS or Javascript oriented, depending on the bug and your solution.
-- Modify any file inside the `src` folder as long as the expected result is correct. (_See [Submission](#Submission)_)
+- Modify any file inside the `src` folder as long as the expected result is correct.
 - The goal is to solve the bug as expected. Finding a clean and efficient solution is a nice to have, but not required.
-- You can solve the bugs in any order, they don't depend on each other
+- Except for the last one, the first bugs don't depend on each other and can be solved in any order.
   - We recommend reading all the descriptions first. You might find the solution to one bug while trying to fix another.
+  - The last bug will need other bugs to be fixed first in order to be reproduced.
+- You cannot add any external dependency to the project. The bugs can be solved with vanilla HTML, CSS and Javascript.
 
 ---
 
@@ -149,42 +172,35 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 
 **Actual:** When you reach the end of the data, the **View More** button is still showing and you are still able to click the button. If you click it, the page crashes.
 
+# Bug 7: Approving a transaction won't persist the new value
+
+_You need to fix some of the previous bugs in order to reproduce_
+
+**How to reproduce:**
+
+1. Click on the **Filter by employee** select to open the options dropdown
+2. Select an employee from the list _(E.g. James Smith)_
+3. Toggle the first transaction _(E.g. Uncheck Social Media Ads Inc)_
+4. Click on the **Filter by employee** select to open the options dropdown
+5. Select **All Employees** option
+6. Verify values
+7. Click on the **Filter by employee** select to open the options dropdown
+8. Verify values
+
+**Expected:** In steps 6 and 8, toggled transaction kept the same value it was given in step 2 _(E.g. Social Media Ads Inc is unchecked)_
+
+**Actual:** In steps 6 and 8, toggled transaction lost the value given in step 2. _(E.g. Social Media Ads Inc is checked again)_
+
 ## Submission
 
-You will submit a ZIP file. It should contain a folder named `ramp-fe-challenge-solved` with the following file structure
+**IMPORTANT:** Before sharing your CodeSandbox, open the `email.txt` file and replace your email on the only line of the file. Don't use any prefix or suffix, just your email.
 
-```
-ramp-fe-challenge-solved
-│   email.txt
-│   dependencies.txt (Optional)
-│
-└───src
-```
-
-Once you finish your challenge, create a new folder called `ramp-fe-challenge-solved`, where you copy the following from the project you worked on:
-
-- `email.txt` _Required_: Replace your email on the only line of the file. Don't use any prefix or suffix, just your email.
-- `src` _Required_: Copy the `src` folder as it is. This folder should contain your updated version of the app. Don't worry about the rest of the app, we will deal with it.
-- `dependencies.txt` _Optional_: In case you need to install an external npm package, you can include this file with a list of dependencies that should be installed for your project to run. Each line of the file should be a dependency.
-
-```
-dependency-1
-dependency-2@1.3.4
-dependency-3
-```
-
-**NOTE:** No external package is required to solve any of the bugs. In fact, we encourage you to not add any extra dependency. But we want to give the option in case it is needed.
+You will submit a link to a CodeSandbox with your responses. Make sure your CodeSandbox has the shape of this Regex: `/^https:\/\/codesandbox\.io\/p\/sandbox\/[a-z\d]{6}$/`. _See [Coding](#coding)_
 
 ---
 
 ### Callouts
 
 - Don't remove existing `data-testid` tags. Otherwise, your results will be invalidated.
-- Don't modify anything else other than the bugs. Otherwise, your results might be invalidated.
-- The folder that you will compress should be named `ramp-fe-challenge-solved`, otherwise your results will be invalidated.
-- Remember to compress the folder, NOT the contents of the folder alone. The name of the final ZIP file is irrelevant.
-- You can use a command line zip command to compress your folder, or:
-  - **Mac**: In Finder, right click the folder (`ramp-fe-challenge-solved`) and click **Compress "ramp-fe-challenge-solved"**
-  - **Windows**: In the File Explorer, right click the folder (`ramp-fe-challenge-solved`), select **Send to**, and then select **Compressed (zipped) folder**.
-- Include the generated ZIP file on your application.
+- Other than the bugs, don't modify anything that will have a different outcome. Otherwise, your results might be invalidated.
 - Plagiarism is a serious offense and will result in disqualification from further consideration.
